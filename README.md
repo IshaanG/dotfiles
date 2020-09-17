@@ -1,4 +1,7 @@
-<img align="center" src="https://raw.githubusercontent.com/IshaanG/dotfiles/master/logo.png">
+<div align="center">
+  <img alt="Logo" src="https://raw.githubusercontent.com/IshaanG/dotfiles/master/logo.png" width="500">
+</div>
+
 
 # tracking dotfiles with git
     $ git init --bare ~/.dotfiles
