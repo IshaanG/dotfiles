@@ -1,0 +1,13 @@
+#!/bin/bash
+INTERFACE="wlan0"
+# If the wifi interface exists but no connection is active, "down" shall be displayed.
+if [[ "$(cat /sys/class/net/$INTERFACE/operstate)" = 'down' ]]; then
+    echo "${INTERFACE} down"
+    exit
+fi
+
+#NAME=$(nmcli -t -f active,ssid dev wifi | grep yes | cut -d\: -f2)
+QUALITY=$(grep $INTERFACE /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
+
+
+echo $QUALITY%

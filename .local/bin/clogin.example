@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+# cyberoam login
+import requests
+import time
+import urllib3
+urllib3.disable_warnings()
+millis = int(round(time.time() * 1000))
+payload = {
+    'mode': '191',
+    'username': '<username>',
+    'password': '<password>',
+    'a': millis,
+    'producttype': '0'
+}
+while True:
+    try:
+        session = requests.Session()
+        response = session.post("https://172.16.1.1:8090/login.xml", verify=False, data=payload)
+        if(response.ok):
+            print("Logged in")
+    except requests.exceptions.RequestException as e:
+        print(e)
+    time.sleep(300)

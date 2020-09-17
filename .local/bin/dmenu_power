@@ -1,0 +1,32 @@
+#!/bin/sh
+
+while getopts m:o:b:f:B:F: flag; do
+	case "${flag}" in
+        	m) m=${OPTARG};;
+        	o) fn=${OPTARG};;
+        	b) nb=${OPTARG};;
+        	f) nf=${OPTARG};;
+        	B) sb=${OPTARG};;
+        	F) sf=${OPTARG};;
+    	esac
+done
+
+action=$(echo -e "Log off\nSleep\nHibernate\nPower off\nReboot\nWindows" | dmenu -m ${m} -fn "DejaVuSansMono Nerd Font Mono:size=12" -nb ${nb} -nf ${nf} -sb ${sb} -sf ${sf} -i -p "Power:")
+
+if [[ "$action" = "Log off" ]]; then
+	pkill xinit
+elif [[ "$action" = "Sleep" ]]; then
+	systemctl suspend
+elif [[ "$action" = "Hibernate" ]]; then
+	systemctl hibernate
+elif [[ "$action" = "Power off" ]]; then
+	systemctl poweroff
+elif [[ "$action" = "Reboot" ]]; then
+	systemctl reboot
+elif [[ "$action" = "Windows" ]]; then
+	systemctl reboot --boot-loader-entry=auto-windows
+else
+	exit 1
+fi
+
+exit 0
