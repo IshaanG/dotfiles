@@ -1,0 +1,7 @@
+set selection-clipboard clipboard
+set font "DejaVuSansMono Nerd Font 9"
+set scroll-step 150
+map [ navigate previous
+map ] navigate next
+set recolor-keephue true
+map d recolor
