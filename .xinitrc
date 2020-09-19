@@ -35,4 +35,5 @@ fi
 prime-offload
 dwmblocks &
 xss-lock slock &
+picom &
 exec startdwm
