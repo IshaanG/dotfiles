@@ -1,0 +1,5 @@
+#! /bin/sh
+
+MagnetLink="$(xclip -o)"
+
+exec webtorrent $MagnetLink --mpv

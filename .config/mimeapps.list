@@ -1,0 +1,7 @@
+[Default Applications]
+x-scheme-handler/msteams=teams.desktop
+application/pdf=org.pwmt.zathura.desktop
+x-scheme-handler/webcal=chromium.desktop
+
+[Added Associations]
+application/pdf=org.pwmt.zathura.desktop;
