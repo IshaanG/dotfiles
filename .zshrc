@@ -25,6 +25,7 @@ setopt COMPLETE_ALIASES
 zstyle ':completion::complete:*' gain-privileges 1
 
 source /usr/share/doc/pkgfile/command-not-found.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # alias
 alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
@@ -46,3 +47,5 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

@@ -34,6 +34,8 @@ fi
 
 prime-offload
 dwmblocks &
+dunst &
 xss-lock slock &
 picom &
+networkd-notify &
 exec startdwm
