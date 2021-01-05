@@ -3,5 +3,7 @@ set font "DejaVuSansMono Nerd Font 9"
 set scroll-step 150
 map [ navigate previous
 map ] navigate next
+map <Button9> navigate previous
+map <Button8> navigate next
 set recolor-keephue true
 map d recolor

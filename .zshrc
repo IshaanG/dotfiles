@@ -43,6 +43,10 @@ alias note="touch \`date +%Y_%m_%d.md\`; echo \"# \`date +%d/%m/%Y\`\" >> \`date
 alias windows="systemctl reboot --boot-loader-entry=auto-windows"
 alias dumppkg="pacman -Qqe > $HOME/pkglist"
 
+function yta() {
+    mpv --no-resume-playback --no-video ytdl://ytsearch:"$*"
+}
+
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

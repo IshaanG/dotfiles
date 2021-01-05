@@ -2,4 +2,4 @@
 
 MagnetLink="$(xclip -o)"
 
-exec webtorrent $MagnetLink --mpv
+webtorrent $MagnetLink

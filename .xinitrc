@@ -33,9 +33,15 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 prime-offload
+#setxkbmap us altgr-intl &
+~/.fehbg &
 dwmblocks &
 dunst &
 xss-lock slock &
 picom &
 networkd-notify &
+phonesim -p 12345 /usr/share/phonesim/default.xml &
+/usr/lib/geoclue-2.0/demos/agent &
+#redshift &
+#imwheel -b 45 &
 exec startdwm
