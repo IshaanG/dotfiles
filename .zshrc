@@ -37,7 +37,7 @@ alias cinkill="ps -ef | grep cin | grep -v grep | awk '{print \$2}' | xargs kill
 alias won="nmcli radio wifi on"
 alias woff="nmcli radio wifi off"
 alias bon="sudo rfkill unblock bluetooth;bluetoothctl power on;bluetoothctl connect C4:6E:7B:F9:F4:D2"
-alias gpc="sudo g++ -O2 -std=gnu++17 -Wall -Wextra -Wshadow -DIG_PC -D_GLIBCXX_DEBUG /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/stdc++.h"
+alias gpc="sudo g++ -O2 -std=gnu++17 -Wall -Wextra -Wshadow -Wno-sign-conversion -DIG_PC -D_GLIBCXX_DEBUG /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/stdc++.h"
 alias gp="git add .; git commit -m \"\`date +'%Y-%m-%d %H:%M:%S'\`\"; git push"
 alias note="touch \`date +%Y_%m_%d.md\`; echo \"# \`date +%d/%m/%Y\`\" >> \`date +%Y_%m_%d\`.md; code \`date +%Y_%m_%d\`.md"
 alias windows="systemctl reboot --boot-loader-entry=auto-windows"

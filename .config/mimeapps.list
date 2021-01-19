@@ -1,9 +1,0 @@
-[Default Applications]
-x-scheme-handler/msteams=teams.desktop
-application/pdf=org.pwmt.zathura.desktop
-x-scheme-handler/webcal=chromium.desktop
-x-scheme-handler/tg=userapp-Telegram Desktop-TR1HW0.desktop
-
-[Added Associations]
-application/pdf=org.pwmt.zathura.desktop;
-x-scheme-handler/tg=userapp-Telegram Desktop-TR1HW0.desktop;
