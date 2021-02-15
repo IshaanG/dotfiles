@@ -42,6 +42,7 @@ picom &
 networkd-notify &
 phonesim -p 12345 /usr/share/phonesim/default.xml &
 /usr/lib/geoclue-2.0/demos/agent &
+cadmus &
 #redshift &
 #imwheel -b 45 &
 exec startdwm

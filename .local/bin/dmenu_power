@@ -11,9 +11,11 @@ while getopts m:o:b:f:B:F: flag; do
     	esac
 done
 
-action=$(echo -e "Log off\nSleep\nHibernate\nPower off\nReboot\nWindows" | dmenu -m ${m} -fn "DejaVuSansMono Nerd Font Mono:size=12" -nb ${nb} -nf ${nf} -sb ${sb} -sf ${sf} -i -p "Power:")
+action=$(echo -e "Lock\nLog off\nSleep\nHibernate\nPower off\nReboot\nWindows" | dmenu -m ${m} -fn ${fn} -nb ${nb} -nf ${nf} -sb ${sb} -sf ${sf} -i -p "Power:")
 
-if [[ "$action" = "Log off" ]]; then
+if [[ "$action" = "Lock" ]]; then
+	slock
+elif [[ "$action" = "Log off" ]]; then
 	pkill xinit
 elif [[ "$action" = "Sleep" ]]; then
 	systemctl suspend

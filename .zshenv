@@ -5,6 +5,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export TERM="xterm-256color"
 export QT_QPA_PLATFORMTHEME=gtk2
 export npm_config_prefix=~/.node_modules
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dsun.java2d.opengl=true'
-export AWT_TOOLKIT=MToolkit
-
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dswing.aatext=true'
+#export AWT_TOOLKIT=MToolkit
+export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab

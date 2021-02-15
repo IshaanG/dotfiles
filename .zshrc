@@ -27,6 +27,8 @@ zstyle ':completion::complete:*' gain-privileges 1
 source /usr/share/doc/pkgfile/command-not-found.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+eval $(keychain --eval --quiet --noask id_rsa)
+
 # alias
 alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias diff='diff --color=auto'
