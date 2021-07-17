@@ -40,9 +40,13 @@ dunst &
 xss-lock slock &
 picom &
 networkd-notify &
-phonesim -p 12345 /usr/share/phonesim/default.xml &
+#phonesim -p 12345 /usr/share/phonesim/default.xml &
 /usr/lib/geoclue-2.0/demos/agent &
-cadmus &
+#cadmus &
 #redshift &
 #imwheel -b 45 &
+echo 4 > /tmp/libinput_discrete_deltay_multiplier &
+#noisetorch -i &
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
 exec startdwm

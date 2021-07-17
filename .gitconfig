@@ -1,0 +1,10 @@
+[user]
+	email = ishaang12@gmail.com
+	name = Ishaan Gupta
+	signingkey = ishaang12@gmail.com
+[init]
+	defaultBranch = master
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true

@@ -8,3 +8,4 @@ export npm_config_prefix=~/.node_modules
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dswing.aatext=true'
 #export AWT_TOOLKIT=MToolkit
 export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
+export CPLUS_INCLUDE_PATH="/home/ig/.local/src/ac-library"

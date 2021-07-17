@@ -27,7 +27,7 @@ zstyle ':completion::complete:*' gain-privileges 1
 source /usr/share/doc/pkgfile/command-not-found.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-eval $(keychain --eval --quiet --noask id_rsa)
+#eval $(keychain --eval --quiet --noask id_rsa)
 
 # alias
 alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
@@ -44,9 +44,11 @@ alias gp="git add .; git commit -m \"\`date +'%Y-%m-%d %H:%M:%S'\`\"; git push"
 alias note="touch \`date +%Y_%m_%d.md\`; echo \"# \`date +%d/%m/%Y\`\" >> \`date +%Y_%m_%d\`.md; code \`date +%Y_%m_%d\`.md"
 alias windows="systemctl reboot --boot-loader-entry=auto-windows"
 alias dumppkg="pacman -Qqe > $HOME/pkglist"
+alias yay='paru -Syu'
+alias yeet='paru -Rs'
 
 function yta() {
-    mpv --no-resume-playback --no-video ytdl://ytsearch:"$*"
+    mpv --no-video --no-config ytdl://ytsearch:"$*"
 }
 
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
