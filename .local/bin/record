@@ -1,0 +1,92 @@
+#!/usr/bin/env sh
+
+pid_file="/tmp/recordpid"
+log_file="/tmp/record.log"
+
+pid_exists() {
+    test -r "$pid_file"
+}
+
+is_running() {
+    if pid_exists; then
+        ps "$(cat "$pid_file")" >/dev/null 2>&1 || return 1
+    else
+        return 1
+    fi
+}
+
+start() {
+#    ffmpeg \
+#        -threads 0 \
+#        -thread_queue_size 512 -f x11grab -s 1920x1080 -framerate 60 -i "$DISPLAY" \
+#        -thread_queue_size 1024 -f pulse -itsoffset 0.350 -i "alsa_output.pci-0000_00_1f.3.analog-stereo.monitor" \
+#        -thread_queue_size 1024 -f pulse -itsoffset 0.350 -i "alsa_input.pci-0000_00_1f.3.analog-stereo" \
+#        -c:a aac \
+#        -init_hw_device vaapi=va:/dev/dri/renderD128,driver=i965 -filter_hw_device va \
+#        -vf format=nv12,hwupload \
+#        -c:v h264_vaapi \
+#        -r:v 60 -g:v 120 -bf:v 3 -refs:v 16 \
+#        "$HOME/Videos/$(date '+%y%m%d-%H%M-%S').mkv" >"$log_file" 2>&1 &
+    ffmpeg \
+        -f x11grab -video_size 1920x1080 -framerate 60 -i "$DISPLAY" \
+        -f pulse -i "alsa_output.pci-0000_00_1f.3.analog-stereo.monitor" \
+        -c:a aac \
+	-vaapi_device /dev/dri/renderD128 -vcodec h264_vaapi -vf format='nv12|vaapi,hwupload' \
+	"$HOME/Videos/$(date '+%y%m%d-%H%M-%S').mp4" >"$log_file" 2>&1 &
+    echo "$!" >"$pid_file"
+
+    #notify-send "Record started!"
+}
+
+stop() {
+    pid_exists || exit 1
+    pid="$(cat "$pid_file")"
+    # kill with SIGTERM, allowing finishing touches.
+    kill "$pid"
+    # even after SIGTERM, ffmpeg may still run, so SIGKILL it.
+    sleep 3
+    is_running && kill -9 "$pid"
+    rm -f "$pid_file"
+    #notify-send "Record stopped!"
+}
+
+toggle() {
+    if is_running; then
+        echo "Stopping record"
+        stop
+    else
+        echo "Starting record"
+        start
+    fi
+    echo
+    status
+}
+
+status() {
+    if is_running; then
+        echo "Recording with PID $(cat "$pid_file")"
+        echo "Check the logs at"
+        echo
+        echo "$log_file"
+        echo
+    else
+        echo "Record inactive"
+    fi
+}
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    toggle)
+        toggle
+        ;;
+    status)
+        status
+        ;;
+    *)
+        toggle
+        ;;
+esac

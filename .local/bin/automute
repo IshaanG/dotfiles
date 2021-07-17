@@ -1,0 +1,105 @@
+#!/usr/bin/env sh
+
+pid_file="/tmp/automutepid"
+
+pid_exists() {
+    test -r "$pid_file"
+}
+
+is_running() {
+    if pid_exists; then
+        ps "$(cat "$pid_file")" >/dev/null 2>&1 || return 1
+    else
+        return 1
+    fi
+}
+
+unmute_all() {
+    for i in $(pacmd list-sink-inputs | awk '/index: /{print $2}'); do
+        pactl set-sink-input-mute "$i" false
+    done
+    exit
+}
+
+trap unmute_all INT TERM
+
+mute_all() {
+    for i in $(pacmd list-sink-inputs | awk '/index: /{print $2}'); do
+        pactl set-sink-input-mute "$i" true
+    done
+}
+
+do_automute() {
+    while :; do
+        focus_pid="$(xdotool getwindowfocus getwindowpid)"
+        if [ "$unfocus_pid" != "$focus_pid" ]; then
+            focus_index=$(pacmd list-sink-inputs | awk '/index:/{si = $2}; /'"$focus_pid"'/{print si; exit}')
+            unfocus_index=$(pacmd list-sink-inputs | awk '/index:/{si = $2}; /'"$unfocus_pid"'/{print si; exit}')
+            if [ "$focus_index" ]; then
+                if [ "$unfocus_index" ]; then
+                    pactl set-sink-input-mute "$unfocus_index" true
+                else
+                    mute_all
+                fi
+                pactl set-sink-input-mute "$focus_index" false
+            fi
+            unfocus_pid="$focus_pid"
+        fi
+        sleep 0.25
+    done
+}
+
+start() {
+    do_automute &
+    echo "$!" >"$pid_file"
+    notify-send "Automute started!"
+}
+
+stop() {
+    pid_exists || exit 1
+    pid="$(cat "$pid_file")"
+    # kill with SIGTERM, allowing finishing touches.
+    kill "$pid"
+    # even after SIGTERM, ffmpeg may still run, so SIGKILL it.
+    sleep 3
+    is_running && kill -9 "$pid"
+    rm -f "$pid_file"
+    notify-send "Automute stopped!"
+}
+
+toggle() {
+    if is_running; then
+        echo "Stopping automute"
+        stop
+    else
+        echo "Starting automute"
+        start
+    fi
+    echo
+    status
+}
+
+status() {
+    if is_running; then
+        echo "Automuting is running with PID $(cat "$pid_file")"
+    else
+        echo "Automute inactive"
+    fi
+}
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    toggle)
+        toggle
+        ;;
+    status)
+        status
+        ;;
+    *)
+        toggle
+        ;;
+esac

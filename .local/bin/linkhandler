@@ -1,0 +1,53 @@
+#!/usr/bin/env sh
+
+resolve_url() {
+    if [ -f "$1" ]; then
+        local_url="$1"
+    else
+        local_url="/tmp/$(echo "$1" | sed "s/.*\///")"
+        curl -sL "$1" >"$local_url"
+    fi
+    printf "%s" "$local_url"
+}
+
+if [ -z "$1" ]; then
+    url=$(xclip -o -selection clipboard)
+else
+    url="$1"
+fi
+
+case "$url" in
+    *.mkv | *.webm | *.mp4 | *.mp3 | *.ogg | *.mov | *.ts | *.m3u8* | *.gif | *.m4a | *youtube.com/watch* | *youtube.com/playlist* | *youtu.be* | *twitch.tv* | *invidio.us* | *lbry* | *streamye.com* | *streamvi.com* | *streamwo.com* | *videos.lukesmith.xyz*)
+        setsid mpv -quiet "$url" >/dev/null 2>&1 &
+        ;;
+    acestream://*)
+        setsid acestream-launcher "$url" >/dev/null 2>&1 &
+        ;;
+    *.png | *.jpg | *.jpe | *.jpeg)
+        local_url="$(resolve_url "$url")"
+        setsid sxiv -a "$local_url" >/dev/null 2>&1 &
+        ;;
+    *.pdf | *.ps | *.epub)
+        local_url="$(resolve_url "$url")"
+        setsid zathura "$local_url" >/dev/null 2>&1 &
+        ;;
+    *.torrent | magnet:*)
+        local_url="$(resolve_url "$url")"
+        setsid toradd "$local_url" >/dev/null 2>&1 &
+        ;;
+    *rss* | *feed* | http*.xml | http*.atom)
+        setsid rssadd "$url" >/dev/null 2>&1 &
+        ;;
+    mailto:*)
+        setsid neomutt "$url" >/dev/null 2>&1 &
+        ;;
+    *.dot)
+        setsid xdot "$url" >/dev/null 2>&1 &
+        ;;
+    http*)
+        firefox "$url" >/dev/null 2>&1 &
+        ;;
+    *)
+        "$TERMINAL $EDITOR $1"
+        ;;
+esac

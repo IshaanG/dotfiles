@@ -1,0 +1,7 @@
+#!/bin/sh
+
+bluetoothctl power on
+bluetoothctl connect 18:95:52:00:71:9B
+
+#dbus-send --print-reply --system --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Powered" variant:boolean:true
+#dbus-send --print-reply --system --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Online" variant:boolean:true

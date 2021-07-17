@@ -1,0 +1,5 @@
+#!/bin/sh
+
+notify-send 'start working'
+sleep 1500 && notify-send 'break'
+sleep 300 && notify-send 'back to work'

@@ -1,0 +1,2 @@
+#!/bin/sh
+LD_PRELOAD=/usr/lib/libcurl.so:/home/ig/.local/src/spotifywm/spotifywm.so /usr/bin/spotify
