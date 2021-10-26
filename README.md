@@ -4,13 +4,16 @@
 
 
 # tracking dotfiles with git
-    $ git init --bare ~/.dotfiles
-    $ alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-    $ config config status.showUntrackedFiles no
+```bash
+git init --bare $HOME/.dotfiles
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+config config status.showUntrackedFiles no
+```
 
 # to replicate
-    $ git clone --separate-git-dir=$HOME/.dotfiles https://github.com/IshaanG/dotfiles.git $HOME/.dotfiles-tmp
-    $ cp -r ~/.dotfiles-tmp/* ~
-    $ rm -r ~/.dotfiles-tmp
-    $ alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-    $ config config status.showUntrackedFiles no
+```bash
+git clone --bare https://github.com/IshaanG/dotfiles.git $HOME/.dotfiles
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+config config status.showUntrackedFiles no
+config checkout -f
+```
